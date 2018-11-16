@@ -10,9 +10,17 @@ namespace servicio1.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
-        public IEnumerable<string> Get()
+        public IEnumerable<Pedido> Get()
         {
-            return new string[] { "value1", "value2" };
+            using (var db = new chifa())
+            {
+                var query = from b in db.Pedido
+                            orderby b.iPrecio
+                            select b;
+                return query.ToList();
+            }
+
+           // return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
